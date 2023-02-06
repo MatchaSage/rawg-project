@@ -11,7 +11,7 @@ export default function Search() {
     console.log(data);
   }
 
-  const [gameSearch, changeSearch] = useState();
+  const [gameSearch, setGameSearch] = useState();
 
   return (
     <div className="searchBlock">
@@ -21,7 +21,7 @@ export default function Search() {
         name="gameSearch"
         value={gameSearch}
         placeholder="Search game.."
-        onChange={(event) => changeSearch(event.target.value)}
+        onKeyDown={}
       ></input>
     </div>
   );
