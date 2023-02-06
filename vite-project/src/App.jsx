@@ -1,7 +1,13 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./style.css";
+import Search from "./Components/Search.jsx";
+import GameInfo from "./Components/GameInfo.jsx";
 
 export default function App() {
-  return <h1>Meme</h1>;
+  return (
+    <div className="app">
+      <Search />
+      <GameInfo />
+    </div>
+  );
 }
