@@ -1,5 +1,28 @@
 import React from "react";
+import { useState } from "react";
 
 export default function Search() {
-  return <div>S</div>;
+  async function fetchGameData() {
+    const response = await fetch(
+      "https://api.rawg.io/api/games?key=3649c080caa8421eb6efd3638ba5b10e",
+      { mode: "cors" }
+    );
+    const data = await response.json();
+    console.log(data);
+  }
+
+  const [gameSearch, changeSearch] = useState();
+
+  return (
+    <div className="searchBlock">
+      <h1>Game recommender</h1>
+      <input
+        type="text"
+        name="gameSearch"
+        value={gameSearch}
+        placeholder="Search game.."
+        onChange={(event) => changeSearch(event.target.value)}
+      ></input>
+    </div>
+  );
 }
