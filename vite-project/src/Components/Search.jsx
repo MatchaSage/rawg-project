@@ -21,7 +21,7 @@ export default function Search() {
         name="gameSearch"
         value={gameSearch}
         placeholder="Search game.."
-        onKeyDown={}
+        onKeyDown={meme}
       ></input>
     </div>
   );
