@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 
 export default function Search() {
   const [gameSearch, setGameSearch] = useState("");
+  let inputField = "";
+  let inputValue = "";
 
   useEffect(() => {
-    console.log("works!");
+    console.log(gameSearch);
   }, [gameSearch]);
 
-  function search() {
-    setGameSearch((prev) => {
-      return prev;
-    });
+  function setSearch() {
+    inputField = document.getElementsByClassName("game-input");
+    inputValue = inputField[0].value;
+    setGameSearch(inputValue);
   }
 
   return (
@@ -19,8 +21,9 @@ export default function Search() {
       <input
         type="text"
         name="gameSearch"
+        className="game-input"
         placeholder="Search game.."
-        onKeyDown={search}
+        onChange={setSearch}
       ></input>
     </div>
   );
