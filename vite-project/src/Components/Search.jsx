@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 
 export default function Search() {
-  const [gameSearch, setGameSearch] = useState("Hello");
+  const [gameSearch, setGameSearch] = useState("");
 
   useEffect(() => {
     console.log("works!");
   }, [gameSearch]);
 
   function search() {
-    setGameSearch("Goodbye");
+    setGameSearch((prev) => {
+      return prev;
+    });
   }
 
   return (
@@ -17,7 +19,6 @@ export default function Search() {
       <input
         type="text"
         name="gameSearch"
-        value={gameSearch}
         placeholder="Search game.."
         onKeyDown={search}
       ></input>
