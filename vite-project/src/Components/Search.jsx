@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
+import SearchResults from "./SearchResults";
 
 export default function Search() {
   const [gameSearch, setGameSearch] = useState("");
   let inputField = "";
   let inputValue = "";
 
-  useEffect(() => {
-    console.log(gameSearch);
-  }, [gameSearch]);
+  useEffect(() => {}, [gameSearch]);
 
   function setSearch() {
     inputField = document.getElementsByClassName("game-input");
@@ -25,6 +24,7 @@ export default function Search() {
         placeholder="Search game.."
         onChange={setSearch}
       ></input>
+      <SearchResults text={gameSearch} />
     </div>
   );
 }

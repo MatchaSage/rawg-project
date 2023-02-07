@@ -8,3 +8,7 @@ body {
   background-color: grey;
   font-size: 30px;
 }
+
+.search-results {
+  display: none;
+}
