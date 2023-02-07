@@ -1,17 +1,19 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Search() {
-  async function fetchGameData() {
-    const response = await fetch(
-      "https://api.rawg.io/api/games?key=3649c080caa8421eb6efd3638ba5b10e",
-      { mode: "cors" }
-    );
-    const data = await response.json();
-    console.log(data);
-  }
+  const [gameSearch, setGameSearch] = useState("");
+  let inputField = "";
+  let inputValue = "";
 
-  const [gameSearch, setGameSearch] = useState();
+  useEffect(() => {
+    console.log(gameSearch);
+  }, [gameSearch]);
+
+  function setSearch() {
+    inputField = document.getElementsByClassName("game-input");
+    inputValue = inputField[0].value;
+    setGameSearch(inputValue);
+  }
 
   return (
     <div className="searchBlock">
@@ -19,9 +21,13 @@ export default function Search() {
       <input
         type="text"
         name="gameSearch"
-        value={gameSearch}
+        className="game-input"
         placeholder="Search game.."
+<<<<<<< HEAD
         onKeyDown={meme}
+=======
+        onChange={setSearch}
+>>>>>>> f533ecb4b6333e038ba4a6a2fd54f6a83be66c47
       ></input>
     </div>
   );
