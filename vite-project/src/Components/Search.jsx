@@ -23,11 +23,7 @@ export default function Search() {
         name="gameSearch"
         className="game-input"
         placeholder="Search game.."
-<<<<<<< HEAD
-        onKeyDown={meme}
-=======
         onChange={setSearch}
->>>>>>> f533ecb4b6333e038ba4a6a2fd54f6a83be66c47
       ></input>
     </div>
   );
