@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SearchResults from "./SearchResults";
 
 export default function Search() {
@@ -6,12 +6,33 @@ export default function Search() {
   let inputField = "";
   let inputValue = "";
 
-  useEffect(() => {}, [gameSearch]);
+  const searchRef = useRef(gameSearch);
+  searchRef.current = gameSearch;
+
+  async function getGameData(searchText) {
+    let response = await fetch(
+      `https://api.rawg.io/api/games?key=3649c080caa8421eb6efd3638ba5b10e&search=${searchText}`
+    );
+    let data = await response.json();
+    console.log(data);
+    return data;
+  }
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      getGameData(searchRef.current);
+    }, 500);
+
+    return function () {
+      clearTimeout(timeout);
+    };
+  }, [gameSearch]);
 
   function setSearch() {
     inputField = document.getElementsByClassName("game-input");
     inputValue = inputField[0].value;
     setGameSearch(inputValue);
+    console.log(gameSearch);
   }
 
   return (
