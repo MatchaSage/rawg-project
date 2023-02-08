@@ -14,13 +14,12 @@ export default function Search() {
       `https://api.rawg.io/api/games?key=3649c080caa8421eb6efd3638ba5b10e&search=${searchText}&ordering=-metacritic`
     );
     let data = await response.json();
-    console.log(data);
-    return data;
+    return await data.results;
   }
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      getGameData(searchRef.current);
+      let data = getGameData(searchRef.current);
     }, 500);
 
     return function () {
@@ -32,7 +31,6 @@ export default function Search() {
     inputField = document.getElementsByClassName("game-input");
     inputValue = inputField[0].value;
     setGameSearch(inputValue);
-    console.log(gameSearch);
   }
 
   return (
