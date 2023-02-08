@@ -11,7 +11,7 @@ export default function Search() {
 
   async function getGameData(searchText) {
     let response = await fetch(
-      `https://api.rawg.io/api/games?key=3649c080caa8421eb6efd3638ba5b10e&search=${searchText}`
+      `https://api.rawg.io/api/games?key=3649c080caa8421eb6efd3638ba5b10e&search=${searchText}&ordering=-metacritic`
     );
     let data = await response.json();
     console.log(data);
