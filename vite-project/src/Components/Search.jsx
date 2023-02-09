@@ -3,21 +3,19 @@ import SearchResults from "./SearchResults";
 
 export default function Search() {
   const [gameSearch, setGameSearch] = useState("");
-  let gamesArray;
-  let inputField = "";
-  let inputValue = "";
-
-  async function getGameData(searchText) {
-    let response = await fetch(
-      `https://api.rawg.io/api/games?key=3649c080caa8421eb6efd3638ba5b10e&search=${searchText}&ordering=-metacritic`
-    );
-    let data = await response.json();
-    return data.results;
-  }
+  const [gamesArray, setGamesArray] = useState([]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      let data = getGameData(gameSearch);
+      const fetchData = async () => {
+        const result = await fetch(
+          `https://api.rawg.io/api/games?key=3649c080caa8421eb6efd3638ba5b10e&search=${gameSearch}&ordering=-metacritic`
+        );
+        result.json().then((json) => {
+          setGamesArray(json.results);
+        });
+      };
+      fetchData();
     }, 500);
 
     return function () {
@@ -26,10 +24,11 @@ export default function Search() {
   }, [gameSearch]);
 
   function setSearch() {
+    let inputField = "";
+    let inputValue = "";
     inputField = document.getElementsByClassName("game-input");
     inputValue = inputField[0].value;
     setGameSearch(inputValue);
-    console.log(gamesArray);
   }
 
   return (
@@ -42,7 +41,7 @@ export default function Search() {
         placeholder="Search game.."
         onChange={setSearch}
       ></input>
-      <SearchResults text={gameSearch} />
+      <SearchResults text={gameSearch} array={gamesArray} />
     </div>
   );
 }
