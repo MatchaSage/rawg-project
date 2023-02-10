@@ -12,3 +12,16 @@ body {
 .search-results {
   display: none;
 }
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.search-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
