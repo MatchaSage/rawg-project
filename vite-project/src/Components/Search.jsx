@@ -1,20 +1,8 @@
 import React, { useState } from "react";
-import SearchResults from "./SearchResults";
+import SearchItems from "./SearchItems";
 
 export default function Search() {
-  const [gamesArray, setGamesArray] = useState([]);
-  let searchText;
-
-  function setSearchText() {
-    let inputField = "";
-    let inputValue = "";
-    inputField = document.getElementsByClassName("game-input");
-    inputValue = inputField[0].value;
-    searchText = inputValue;
-    handleGamesArray();
-  }
-
-  function handleGamesArray() {
+  function fetchApi() {
     fetch(
       `https://api.rawg.io/api/games?key=3649c080caa8421eb6efd3638ba5b10e&search=${searchText}`
     )
@@ -23,16 +11,18 @@ export default function Search() {
   }
 
   return (
-    <div className="search-block">
-      <h1>Game Recommender</h1>
-      <input
-        type="text"
-        name="gameSearch"
-        className="game-input"
-        placeholder="Search game.."
-        onChange={setSearchText}
-      ></input>
-      <SearchResults text={searchText} games={gamesArray} />
+    <div className="search">
+      <div className="input-container">
+        <h1>Game Recommender</h1>
+        <input
+          type="text"
+          name="gameSearch"
+          className="game-input"
+          placeholder="Search game.."
+          onChange={fetchApi}
+        ></input>
+      </div>
+      <div className="search-container"></div>
     </div>
   );
 }
