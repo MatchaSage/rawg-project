@@ -1,30 +1,42 @@
 import React, { useState, useEffect } from "react";
-import SearchResults from "./SearchResults";
+import SearchItems from "./SearchItems";
 
 export default function Search() {
-  const [gameSearch, setGameSearch] = useState("");
-  let inputField = "";
-  let inputValue = "";
+  const [gamesArray, setGamesArray] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
-  useEffect(() => {}, [gameSearch]);
-
-  function setSearch() {
-    inputField = document.getElementsByClassName("game-input");
-    inputValue = inputField[0].value;
-    setGameSearch(inputValue);
+  function handleChange(event) {
+    setSearchText(event.target.value);
   }
 
+  useEffect(() => {
+    fetch(
+      `https://api.rawg.io/api/games?key=3649c080caa8421eb6efd3638ba5b10e&search=${searchText}`
+    )
+      .then((res) => res.json())
+      .then((json) =>
+        setGamesArray(
+          json.results.slice(0, 5).map((game) => {
+            return <SearchItems key={game.id} name={game.name} />;
+          })
+        )
+      );
+  }, [searchText]);
+
   return (
-    <div className="searchBlock">
-      <h1>Game recommender</h1>
-      <input
-        type="text"
-        name="gameSearch"
-        className="game-input"
-        placeholder="Search game.."
-        onChange={setSearch}
-      ></input>
-      <SearchResults text={gameSearch} />
+    <div className="search">
+      <div className="input-container">
+        <h1>Game Recommender</h1>
+        <input
+          type="text"
+          name="gameSearch"
+          className="game-input"
+          placeholder="Search game.."
+          value={searchText}
+          onChange={handleChange}
+        ></input>
+      </div>
+      <div className="search-container">{gamesArray}</div>
     </div>
   );
 }
