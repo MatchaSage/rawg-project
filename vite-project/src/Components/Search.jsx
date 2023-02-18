@@ -3,25 +3,25 @@ import SearchItems from "./SearchItems";
 
 export default function Search() {
   const [gamesArray, setGamesArray] = useState([]);
-  const [containerGames, setContainerGames] = useState([]);
-  let searchText;
+  const [searchText, setSearchText] = useState("");
 
-  function fetchApi() {
-    searchText = document.querySelector(".game-input").value;
-    fetch(
-      `https://api.rawg.io/api/games?key=3649c080caa8421eb6efd3638ba5b10e&search=${searchText}`
-    )
-      .then((response) => response.json())
-      .then((json) => setGamesArray(json.results));
+  function handleChange(event) {
+    setSearchText(event.target.value);
   }
 
   useEffect(() => {
-    setContainerGames(
-      gamesArray.slice(0, 5).map((game) => {
-        return <SearchItems name={`${game.name}`} />;
-      })
-    );
-  }, [gamesArray]);
+    fetch(
+      `https://api.rawg.io/api/games?key=3649c080caa8421eb6efd3638ba5b10e&search=${searchText}`
+    )
+      .then((res) => res.json())
+      .then((json) =>
+        setGamesArray(
+          json.results.slice(0, 5).map((game) => {
+            return <SearchItems key={game.id} name={game.name} />;
+          })
+        )
+      );
+  }, [searchText]);
 
   return (
     <div className="search">
@@ -32,10 +32,11 @@ export default function Search() {
           name="gameSearch"
           className="game-input"
           placeholder="Search game.."
-          onChange={fetchApi}
+          value={searchText}
+          onChange={handleChange}
         ></input>
       </div>
-      <div className="search-container">{containerGames}</div>
+      <div className="search-container">{gamesArray}</div>
     </div>
   );
 }
